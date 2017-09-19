@@ -8,13 +8,16 @@ WORKDIR $WORKING_DIRECTORY
 
 USER root
 
+# Install packages
+ENV ANGULAR_CLI_VERSION=1.4.2
+
 RUN apk update && \
-    apk add nodejs && \
+    apk add --no-cache nodejs && \
+    apk add --no-cache libsass && \
     npm i -g npm && \
-    npm i -g multi-file-swagger && \
-    npm i -g json2yaml && \
-    npm i -g swagger && \
-    npm i -g angular-cli
+    npm i -g @angular/cli@^${ANGULAR_CLI_VERSION} && \
+    npm i -g typescript ts-node tslint jasmine-ts nyc && \
+    npm i -g multi-file-swagger json2yaml swagger
 
 RUN rm -rf /var/cache/apk/* \
     rm -rf /usr/share/man && \
